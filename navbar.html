@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Glass Navigation</title>
+  <style>
+    /* Font Declarations */
+    @font-face {
+      font-family: 'PP Neue Montreal Book';
+      src: url('PPNeueMontreal-Book.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Montreal Medium';
+      src: url('PPNeueMontreal-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Montreal Bold';
+      src: url('PPNeueMontreal-Bold.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Montreal Mono';
+      src: url('PPNeueMontrealMono-Book.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'PP Editorial New Ultralight';
+      src: url('PPEditorialNew-Ultralight.otf') format('opentype');
+      font-weight: 200;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'PP Editorial New';
+      src: url('PPEditorialNew-Ultralight.otf') format('opentype');
+      font-weight: 200;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Montreal';
+      src: url('PPNeueMontreal-Book.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'PP Playground Light';
+      src: url('PPPlayground-Light.otf') format('opentype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f5f5;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    a {
+      font-family: 'PP Neue Montreal Mono', monospace;
+      font-size: 1rem;
+    }
+
+    /* Navigation Container */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: transparent;
+      border-bottom: none;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .navbar.hidden {
+      transform: translateY(-100%);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Logo/Brand */
+    .nav-brand {
+      font-family: 'PP Playground', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: #1B00E8;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      z-index: 1001;
+    }
+
+    .nav-brand:hover {
+      color: #ccccf5;
+    }
+
+    /* Hamburger Icon */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      width: 20px;
+      height: 2px;
+      background-color: #737373;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    /* Hamburger to X animation */
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile Menu */
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, rgba(245, 245, 245, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 5rem 3rem 2rem;
+      list-style: none;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: visible;
+      z-index: 1000;
+    }
+
+    .nav-menu.active {
+      right: 0;
+    }
+
+    /* Menu Items */
+    .nav-item {
+      margin-bottom: 2rem;
+      width: 80%;
+      max-width: 400px;
+      perspective: 1000px;
+    }
+
+
+    /* Navigation Links - Liquid Glass Buttons */
+    .nav-link {
+      display: block;
+      padding: 1rem 2rem;
+      color: #6e6e6e;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.02rem;
+      text-align: center;
+      text-transform: lowercase;
+      position: relative;
+
+      /* Soft transparent glassmorphism effect */
+      background: rgba(212, 215, 221, 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 50px;
+      /* Smooth transitions */
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      /* Light refraction effect */
+      overflow: hidden;
+    }
+
+    /* Liquid shimmer effect */
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+      transform: rotate(45deg);
+      transition: all 0.6s ease;
+      opacity: 0;
+    }
+
+    /* Inner glow effect */
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(0, 26, 255, 0.082) 9%, transparent 90%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Hover state */
+    .nav-link:hover {
+      color: #4b5563;
+      background: #C6CEDE;
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .nav-link:hover::before {
+      opacity: 1;
+      left: 100%;
+    }
+
+    /* Active state */
+    .nav-link.active {
+      color: #0400ff;
+      background: #c8d2e756;
+    }
+
+    /* Active state hover */
+    .nav-link.active:hover {
+      background: rgba(229, 231, 235, 0.9);
+      transform: translateY(-2px);
+    }
+
+    /* Overlay */
+    .nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 999;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .nav-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Desktop Styles */
+    @media (min-width: 768px) {
+      .hamburger {
+        display: none;
+      }
+
+      .nav-menu {
+        position: static;
+        flex-direction: row;
+        width: auto;
+        height: auto;
+        padding: 0;
+        box-shadow: none;
+        background: transparent;
+        backdrop-filter: none;
+        gap: 1.5rem;
+      }
+
+      .nav-item {
+        margin-bottom: 0;
+        width: auto;
+      }
+
+      .nav-link {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        text-transform: lowercase;
+        letter-spacing: 0.02rem;
+      }
+
+      .nav-overlay {
+        display: none;
+      }
+
+      /* Desktop hover enhancements */
+      .nav-link:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .navbar {
+        padding: 1.25rem 3rem;
+      }
+
+      .nav-link {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Demo content */
+    .demo-content {
+      padding: 6rem 2rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .demo-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 4rem 0;
+    }
+
+    .demo-section h2 {
+      font-size: 3rem;
+      color: #333;
+      margin-bottom: 1rem;
+      font-family: 'PP Neue Montreal Mono', monospace;
+    }
+
+    .demo-section p {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      text-align: center;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-wrapper">
+      <a href="index.html" class="nav-brand">yvonne</a>
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">Work</a>
+        </li>
+        <li class="nav-item">
+          <a href="about.html" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="path/to/your-resume.pdf" class="nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
+        </li>
+      </ul>
+
+      <!-- Hamburger button for mobile -->
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Overlay for mobile menu -->
+  <div class="nav-overlay"></div>
+
+  <script id="navbar-script">
+    // Auto-execute immediately
+    (function() {
+      console.log('🚀 Navbar script executing...');
+
+      // Wait for DOM elements to be available
+      setTimeout(function() {
+        // Navigation functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navbar = document.querySelector('.navbar');
+
+        console.log('📍 Found', navLinks.length, 'nav links');
+
+        // Set active nav link based on current page
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        console.log('📄 Current page:', currentPage);
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          const linkHref = link.getAttribute('href');
+          console.log('🔗 Checking:', linkHref, 'vs', currentPage);
+
+          // Check if link matches current page
+          if (linkHref === currentPage ||
+              (currentPage === '' && linkHref === 'index.html') ||
+              (currentPage === 'index.html' && linkHref === 'index.html')) {
+            console.log('✅ MATCH! Adding active to:', linkHref);
+            link.classList.add('active');
+          }
+        });
+
+    function toggleMenu() {
+      const isActive = hamburger.classList.contains('active');
+
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      navOverlay.classList.toggle('active');
+
+      hamburger.setAttribute('aria-expanded', !isActive);
+      document.body.style.overflow = isActive ? '' : 'hidden';
+    }
+
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('active');
+      navOverlay.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    navOverlay.addEventListener('click', closeMenu);
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        closeMenu();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth >= 768 && navMenu.classList.contains('active')) {
+          closeMenu();
+        }
+      }, 250);
+    });
+
+    // Hide/show navbar on scroll
+    let lastScrollTop = 0;
+    let scrollThreshold = 5;
+    let isScrolling = false;
+
+    window.addEventListener('scroll', () => {
+      if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+          if (navMenu.classList.contains('active')) {
+            isScrolling = false;
+            return;
+          }
+
+          if (Math.abs(scrollTop - lastScrollTop) > scrollThreshold) {
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+              navbar.classList.add('hidden');
+            } else {
+              navbar.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop;
+          }
+
+          isScrolling = false;
+        });
+        isScrolling = true;
+      }
+    }, { passive: true });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+      }, 100); // End setTimeout
+    })(); // End auto-executing function
+  </script>
+</body>
+</html>

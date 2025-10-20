@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name | Portfolio</title>
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="PPNeueMontreal-Book.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="PPNeueMontrealMono-Book.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="PPPlayground-Light.otf" as="font" type="font/otf" crossorigin>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<div id="navbar"></div>
+<h1>Yvonne Nguyen is a product designer based in San Jose, CA.</h1>
+<h2>So I think this would be where I put my work??</h2>
+<h3>Exmaple here would be case studies, so Looklab.</h3>
+<p class="large">Fucking Shit</p>
+<p>President Trump may have moved out of New York City, but he has privately discussed whether to intercede in its fractious race for mayor to try to stop Zohran Mamdani, the Democratic nominee, according to eight people briefed on the discussions.
+
+In recent weeks, Mr. Trump has quizzed a Republican congressman and New York businessmen about who in the crowded field of candidates, which includes Mayor Eric Adams and former Gov. Andrew M. Cuomo, has the best chance of beating Mr. Mamdani, the leftist front-runner.
+
+The president has been briefed by Mark Penn, a pollster who has worked for Bill and Hillary Clinton, and Andrew Stein, a former New York City Council president and decades-long friend of Mr. Trump, on a range of polling that showed Mr. Cuomo could still be competitive as an independent candidate. Both men have pushed Mr. Cuomo as the best candidate despite his loss in the Democratic primary, including in a recent Wall Street Journal op-ed. One of Mr. Penn’s firms did extensive work for a pro-Cuomo super PAC in the primary.
+
+And in a previously undisclosed call in recent weeks, Mr. Trump spoke about the race directly with Mr. Cuomo, an old associate and foil, according to three people briefed on the call, who were not authorized to discuss it.</p>
+<p class="small">test test test testing a lot but tbh i dont think line height matters for this</p>
+<p class="large"> keep on testing this i also dont think will take up a lot of space</p>
+
+<script>
+  // Load Navbar
+  fetch('navbar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('navbar').innerHTML = data;
+
+      // Extract and execute the script (it will auto-initialize)
+      const scriptContent = data.match(/<script[^>]*>([\s\S]*?)<\/script>/);
+      if (scriptContent && scriptContent[1]) {
+        eval(scriptContent[1]);
+      }
+    });
+</script>
+</body>
+</html>

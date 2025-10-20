@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Footer Component</title>
+  <style>
+    /* Font Declarations */
+    @font-face {
+      font-family: 'PP Neue Montreal Book';
+      src: url('PPNeueMontreal-Book.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Montreal Medium';
+      src: url('PPNeueMontreal-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Montreal Bold';
+      src: url('PPNeueMontreal-Bold.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Montreal Mono';
+      src: url('PPNeueMontrealMono-Book.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: 'PP Editorial New Ultralight';
+      src: url('PPEditorialNew-Ultralight.otf') format('opentype');
+      font-weight: 200;
+      font-style: normal;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: 'PP Editorial New';
+      src: url('PPEditorialNew-Ultralight.otf') format('opentype');
+      font-weight: 200;
+      font-style: normal;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Montreal';
+      src: url('PPNeueMontreal-Book.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: 'PP Playground';
+      src: url('PPPlayground-Light.otf') format('opentype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: block;
+    }
+
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .footerh1{
+      font-family: 'PP Playground', serif;
+      font-weight: 400;
+      color: #0400ff;
+      font-size: 5rem;
+      margin: 0 0 1.5rem 0;
+      line-height: 100%;
+    }
+
+    body {
+      font-family:'PP Neue Montreal Mono', monospace;
+      font-size: 0.9rem;
+      background-color: #F5F5F5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Spacer to push footer down */
+    .content-spacer {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    .content-spacer h1 {
+      color: var(--primary-color);
+      font-family: 'PP Neue Montreal Mono', monospace;
+      font-size: 1rem;
+      padding: 0 0 1rem 0;
+      margin: 0;
+    }
+
+    .content-spacer p {
+      color: #eaeaea;
+    }
+
+    /* Footer Container */
+    .footer {
+      width: 100%;
+      background-color: #F5F5F5;
+      /* border-top: 1px solid #e0e0e0; */
+      padding: 2rem 2rem;
+      margin: 1rem 0;
+    }
+
+    .footer-wrapper {
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Footer Brand/Text */
+    .footer-brand {
+      color: #666;
+      font-family: 'PP Neue Montreal Mono', monospace;
+      font-size: 1rem;
+      text-decoration: none;
+      text-align: center;
+      transition: color 0.2s ease;
+    }
+
+    .footer-brand:hover {
+      color: #666;
+    }
+
+    /* Footer Navigation */
+    .footer-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .footer-item {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Footer Links */
+    .footer-link {
+      display: block;
+      padding: 0.75rem 0;
+      color: #666;
+      text-decoration: none;
+      font-family: 'PP Neue Montreal Mono', monospace;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      line-height: 170%;
+      letter-spacing: 0.07rem;
+      transition: color 0.2s ease;
+      /* border-bottom: 1px solid #e0e0e0; */
+    }
+
+    .footer-link:hover,
+    .footer-link.active {
+      color: #0400ff;
+    }
+
+    .ummm{
+      text-align: center;
+    }
+
+    /* Footer Grid Layout */
+    .footer-grid {
+      /* display: grid; */
+      /* grid-template-columns: 1fr 1fr; */
+      /* gap: 2rem; */
+      margin-bottom: 2rem;
+      /* align-items: start; */
+      place-items: center;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+    }
+
+    /* .footer-left .footerh1 {
+      text-align: left;
+    } */
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Desktop Styles */
+    @media (min-width: 768px) {
+      .footer-wrapper {
+        /* flex-direction: row; */
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-brand {
+        text-align: left;
+      }
+
+      .footer-menu {
+        flex-direction: row;
+        gap: 2.5rem;
+      }
+
+      .footer-item {
+        width: auto;
+      }
+
+      .footer-link {
+        padding: 0;
+        border-bottom: none;
+      }
+    }
+
+    .ascii-footer {
+      width: 100%;
+      padding: 3rem 1rem;
+      background-color: #F5F5F5;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    pre.ascii-art {
+      font-family: 'PP Neue Montreal Mono', monospace;
+      color: #4B4B4B;
+      font-size: 0.75rem;
+      line-height: 1.2;
+      margin: 0;
+      text-align: center;
+    }
+
+
+    @media (min-width: 1024px) {
+      .footer {
+        padding: 2rem 3rem;
+      }
+
+      .content-spacer h1 {
+        font-size: 3.4rem;
+        letter-spacing: 0rem;
+      }
+
+      .footerh1{
+        font-size: 9rem;
+
+  }
+      .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      align-items: start;
+      place-items: center;
+    }
+}
+  </style>
+</head>
+<body>
+  <!-- Demo content to show footer at bottom -->
+  <div class="content-spacer">
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-left">
+        <div class="ummm footerh1">Yvonne Nguyen</div>
+      </div>
+      <div class="footer-right">
+        <nav class="footer-links">
+          <a href="mailto:your.email@example.com" class="footer-link">contact</a>
+          <a href="#" class="footer-link">linkedin</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-wrapper">
+      <!-- Footer Brand/Text -->
+      <pre class="ascii-art">♡ ∩_∩
+   („• ֊ •„)♡
+|￣￣￣￣￣￣￣U￣U￣￣￣￣￣￣￣|
+| made with ♡ by me & claude |</pre>
+
+    </div>
+  </footer>
+</body>
+</html>

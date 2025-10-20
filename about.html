@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yvonne's portfolio</title>
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="PPNeueMontreal-Book.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="PPNeueMontrealMono-Book.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="PPPlayground-Light.otf" as="font" type="font/otf" crossorigin>
+
+  <link rel="stylesheet" href="about.css?v=3" />
+  <style id="selection-style">
+  /* universal selection, high priority */
+  ::selection { background:#ccccf5; color:#0400ff; }
+  ::-moz-selection { background:#ccccf5; color:#0400ff; }
+  ::-webkit-selection { background:#ccccf5; color:#0400ff; }
+</style>
+
+</head>
+
+<body>
+<div id="navbar"></div>
+<main>
+<h1>I'm a designer and writer, interested in how the everyday shapes how we live ˚ ೀ⋆ ✿ ˖.ೃ࿔*:･⋆˚°
+</h1>
+
+<div class="about-grid">
+  <div class="about-text">
+    <p>I care about how people move through the world and the quiet systems that shape their days. Design is how I pay attention to those moments and try to make them better. I'm drawn to the spaces where care and clarity meet, where small details can change how someone feels. My work is guided by a hope to make products that help people feel more connected: to themselves, to each other, and to the world around them.
+</p>
+<p>Outside of work I enjoy Polaroid photography, traveling, and watching movies.
+</p>
+  </div>
+  <div class="about-image">
+    <img src="/portfoliohomeimg/heythatsme.png" alt="Photo of me">
+  </div>
+</div>
+
+  <div class="polaroid-container">
+    <h2>Some memories...</h2>
+    <p>(swipe to see more)</p>
+    <div class="deck" id="deck">
+      <div class="card" style="--idle-rot:-2deg" data-caption="aloha">
+        <img src="/polaroids/aloha.png" alt="Photo 2">
+      </div>
+      <div class="card" style="--idle-rot: 3deg" data-caption="in the depths of the louisiana swamp">
+        <img src="/polaroids/daswamp.png" alt="Photo 3">
+      </div>
+      <div class="card" style="--idle-rot:-2deg" data-caption="at a ryokan in kyoto/i love how moody this photo turned out">
+        <img src="/polaroids/kyotospooooky.png" alt="Photo 4">
+      </div>
+      <div class="card" style="--idle-rot:6deg" data-caption="exploring a temple kyoto on a cold winters day">
+        <img src="/polaroids/kyototemple.png" alt="Photo 5">
+      </div>
+      <div class="card" style="--idle-rot:-6deg" data-caption="4ever a lover of cute mascots ♡">
+        <img src="/polaroids/tokyosanrio.png" alt="Photo 5">
+      </div>
+      <div class="card" style="--idle-rot:-4deg" data-caption="a serene dog beach in san diego">
+        <img src="/polaroids/sdbeach.png" alt="Photo 1">
+      </div>
+    </div>
+    <div class="caption-area" id="caption">San Diego Beach</div>
+
+  </div>
+
+</main>
+<div id="footer"></div>
+<script>
+  // Load Navbar
+  fetch('navbar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('navbar').innerHTML = data;
+
+      // Extract and execute the script (it will auto-initialize)
+      const scriptContent = data.match(/<script[^>]*>([\s\S]*?)<\/script>/);
+      if (scriptContent && scriptContent[1]) {
+        eval(scriptContent[1]);
+      }
+    });
+
+  // Load Footer
+  fetch('footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+</script>
+<script src="/js/polaroid.js"></script>
+</body>
+</html>
