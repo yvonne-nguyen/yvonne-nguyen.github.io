@@ -5,18 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
-  <!-- Preload critical fonts -->
-  <link rel="preload" href="PPNeueMontreal-Book.otf" as="font" type="font/otf" crossorigin>
-  <link rel="preload" href="PPNeueMontrealMono-Book.otf" as="font" type="font/otf" crossorigin>
-  <link rel="preload" href="PPPlayground-Light.otf" as="font" type="font/otf" crossorigin>
-
   <title>Looklab</title>
   <link rel="stylesheet" href="style.css" />
 
 </head>
 <body>
-    <!-- Navbar placeholder -->
-    <div id="navbar-placeholder"></div>
+  <div id="navbar"></div>
 
     <div class="layout">
       <!-- Sidebar -->
@@ -326,46 +320,26 @@
       <p>This was my first 0→1 project, and it taught me how much scope and timing shape outcomes. We tried to meet every client goal at once, which stretched our capacity. Looking back, earlier testing and smaller iterations would have given us clarity sooner. Next time, I’ll focus on scope and faster prototyping in order to validate concepts earlier in the process.</p>
       </section>
     </main>
+    <div id="footer"></div>
   </div>
+  <script>
+  // Load Navbar
+  fetch('navbar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('navbar').innerHTML = data;
+    });
 
-  <!-- Footer placeholder -->
-  <div id="footer-placeholder"></div>
-
+  // Load Footer
+  fetch('footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+</script>
   <script src="/js/lightbox.js"></script>
   <script src="/js/view-more-btn.js"></script>
   <script src="/js/highlight.js"></script>
   <script src="/js/sidenav.js"></script>
-
-  <!-- Load navbar and footer -->
-  <script>
-    // Load navbar
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const navbar = doc.querySelector('nav.navbar');
-        if (navbar) {
-          document.getElementById('navbar-placeholder').innerHTML = navbar.outerHTML;
-          // Re-initialize navbar JavaScript (it will auto-execute)
-          const script = doc.querySelector('script');
-          if (script) {
-            eval(script.textContent);
-          }
-        }
-      });
-
-    // Load footer
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const footer = doc.querySelector('footer.footer');
-        if (footer) {
-          document.getElementById('footer-placeholder').innerHTML = footer.outerHTML;
-        }
-      });
-  </script>
 </body>
 </html>
