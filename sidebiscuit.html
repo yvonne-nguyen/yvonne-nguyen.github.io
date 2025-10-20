@@ -237,6 +237,12 @@
     .then(response => response.text())
     .then(data => {
       document.getElementById('navbar').innerHTML = data;
+
+      // Extract and execute the script (it will auto-initialize)
+      const scriptContent = data.match(/<script[^>]*>([\s\S]*?)<\/script>/);
+      if (scriptContent && scriptContent[1]) {
+        eval(scriptContent[1]);
+      }
     });
 
   // Load Footer
