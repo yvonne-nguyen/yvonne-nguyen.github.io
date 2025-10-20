@@ -403,7 +403,7 @@
           <a href="about.html" class="nav-link">About</a>
         </li>
         <li class="nav-item">
-          <a href="#resume" class="nav-link">Resume</a>
+          <a href="#https://drive.google.com/file/d/1aSJpjl0wj5F96EXn1g65orhy4RxqgEJI/view?usp=sharing" class="nav-link">Resume</a>
         </li>
       </ul>
 
@@ -499,7 +499,7 @@
 
     // Hide/show navbar on scroll
     let lastScrollTop = 0;
-    let scrollThreshold = 5;
+    let scrollThreshold = 10;
     let isScrolling = false;
 
     window.addEventListener('scroll', () => {
@@ -507,18 +507,23 @@
         window.requestAnimationFrame(() => {
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
+          // Don't hide navbar if mobile menu is open
           if (navMenu.classList.contains('active')) {
             isScrolling = false;
             return;
           }
 
+          // Only apply hide/show logic if scrolled past threshold
           if (Math.abs(scrollTop - lastScrollTop) > scrollThreshold) {
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scrolling down - hide navbar
+            if (scrollTop > lastScrollTop && scrollTop > 80) {
               navbar.classList.add('hidden');
-            } else {
+            }
+            // Scrolling up - show navbar
+            else if (scrollTop < lastScrollTop) {
               navbar.classList.remove('hidden');
             }
-            lastScrollTop = scrollTop;
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative values
           }
 
           isScrolling = false;
