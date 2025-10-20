@@ -100,11 +100,13 @@
       z-index: 1000;
       padding: 1rem 2rem;
       transform: translateY(0);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
     }
 
     .navbar.hidden {
-      transform: translateY(-100%);
+      transform: translateY(-120%);
+      pointer-events: none;
     }
 
     .nav-wrapper {
@@ -403,9 +405,10 @@
           <a href="about.html" class="nav-link">About</a>
         </li>
         <li class="nav-item">
-          <a href="#https://drive.google.com/file/d/1aSJpjl0wj5F96EXn1g65orhy4RxqgEJI/view?usp=sharing" class="nav-link">Resume</a>
+          <a href="https://drive.google.com/file/d/1aSJpjl0wj5F96EXn1g65orhy4RxqgEJI/view?usp=sharing" class="nav-link">Resume</a>
         </li>
       </ul>
+
 
       <!-- Hamburger button for mobile -->
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -422,8 +425,6 @@
   <script id="navbar-script">
     // Auto-execute immediately
     (function() {
-      console.log('🚀 Navbar script executing...');
-
       // Wait for DOM elements to be available
       setTimeout(function() {
         // Navigation functionality
@@ -433,22 +434,17 @@
         const navLinks = document.querySelectorAll('.nav-link');
         const navbar = document.querySelector('.navbar');
 
-        console.log('📍 Found', navLinks.length, 'nav links');
-
         // Set active nav link based on current page
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        console.log('📄 Current page:', currentPage);
 
         navLinks.forEach(link => {
           link.classList.remove('active');
           const linkHref = link.getAttribute('href');
-          console.log('🔗 Checking:', linkHref, 'vs', currentPage);
 
           // Check if link matches current page
           if (linkHref === currentPage ||
               (currentPage === '' && linkHref === 'index.html') ||
               (currentPage === 'index.html' && linkHref === 'index.html')) {
-            console.log('✅ MATCH! Adding active to:', linkHref);
             link.classList.add('active');
           }
         });
@@ -499,36 +495,36 @@
 
     // Hide/show navbar on scroll
     let lastScrollTop = 0;
-    let scrollThreshold = 10;
-    let isScrolling = false;
+    let scrollThreshold = 5;
+    let ticking = false;
 
     window.addEventListener('scroll', () => {
-      if (!isScrolling) {
+      if (!ticking) {
         window.requestAnimationFrame(() => {
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
           // Don't hide navbar if mobile menu is open
           if (navMenu.classList.contains('active')) {
-            isScrolling = false;
+            ticking = false;
             return;
           }
 
           // Only apply hide/show logic if scrolled past threshold
           if (Math.abs(scrollTop - lastScrollTop) > scrollThreshold) {
             // Scrolling down - hide navbar
-            if (scrollTop > lastScrollTop && scrollTop > 80) {
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
               navbar.classList.add('hidden');
             }
             // Scrolling up - show navbar
             else if (scrollTop < lastScrollTop) {
               navbar.classList.remove('hidden');
             }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative values
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
           }
 
-          isScrolling = false;
+          ticking = false;
         });
-        isScrolling = true;
+        ticking = true;
       }
     }, { passive: true });
 
